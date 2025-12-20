@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import Signup from './Signup';
+import { AppDataSource } from './data-source';
 
-export function api() {
+export async function api() {
+    await AppDataSource.initialize();
     const app = express();
     app.use(express.json());
     app.use(cors());
