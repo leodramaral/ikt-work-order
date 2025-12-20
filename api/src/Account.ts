@@ -21,7 +21,7 @@ export default class Account {
     validate() {
         if (!this.name || this.name.length < 2) throw new Error("Invalid name");
         if (!this.email || !this.email.includes("@")) throw new Error("Invalid email");
-        if (!this.passwordHash || this.passwordHash.length < 8) throw new Error("Invalid password hash");
+        if (!this.passwordHash || this.passwordHash.length < 6) throw new Error("Invalid password hash");
     }
 
     static create(name: string, email: string, passwordHash: string): Account {
