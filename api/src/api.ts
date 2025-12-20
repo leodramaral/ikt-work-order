@@ -4,6 +4,7 @@ import cors from 'cors';
 import Signup from './Signup';
 import { AppDataSource } from './data-source';
 import { AccountRepositoryDataBase } from './AccountRepository';
+import Login from './Login';
 
 export async function api() {
     await AppDataSource.initialize();
@@ -13,6 +14,7 @@ export async function api() {
 
     const accountRepository = new AccountRepositoryDataBase();
     const signup = new Signup(accountRepository);
+    const login = new Login(accountRepository);
 
     app.post('/signup', async (req: Request, res: Response) => {
         try {
@@ -20,6 +22,19 @@ export async function api() {
             const output = await signup.execute(input);
             res.json(output);
         } catch (e: any) {
+            res.status(500).json({
+                message: e.message
+            });
+        }
+    });
+
+    app.post('/login', async (req: Request, res: Response) => {
+        try {
+            const input = req.body;
+            const success = await login.execute(input);
+            res.json({ success });
+        }
+        catch (e: any) {
             res.status(500).json({
                 message: e.message
             });
