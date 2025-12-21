@@ -1,10 +1,17 @@
-import { Button, HStack } from "@chakra-ui/react"
+import {
+  VStack,
+  Container,
+} from "@chakra-ui/react"
+import { CreateWorkOrderForm } from "./components"
 
 function App() {
+
   return (
-    <HStack>
-      <Button>Add Work Order</Button>
-    </HStack>
+    <Container maxW="container.md" py={8}>
+      <VStack gap={6} align="stretch">
+        <CreateWorkOrderForm />        
+      </VStack>
+    </Container>
   )
 }
 
