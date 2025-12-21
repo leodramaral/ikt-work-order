@@ -9,6 +9,7 @@ import { TaskRepositoryTypeORM } from './TaskRepository';
 import GetTasks from './GetTasks';
 import CreateWorkOrder from './CreateWorkOrder';
 import { WorkOrderRepositoryTypeORM } from './WorkOrderRepository';
+import GetWorkOrders from './GetWorkOrders';
 
 export async function api() {
     await AppDataSource.initialize();
@@ -23,6 +24,7 @@ export async function api() {
     const login = new Login(accountRepository);
     const task = new GetTasks(taskRepository);
     const createWorkOrder = new CreateWorkOrder(workOrderRepository, taskRepository);
+    const getWorkOrders = new GetWorkOrders(workOrderRepository);
 
     app.post('/signup', async (req: Request, res: Response) => {
         try {
@@ -59,6 +61,18 @@ export async function api() {
                 message: e.message
             });
         };
+    });
+
+    app.get('/work-orders', async (req: Request, res: Response) => {
+        try {
+            const workOrders = await getWorkOrders.execute();
+            res.json(workOrders);
+        }
+        catch (e: any) {
+            res.status(500).json({
+                message: e.message
+            });
+        }
     });
 
     app.post('/work-orders', async (req: Request, res: Response) => {
