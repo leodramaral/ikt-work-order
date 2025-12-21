@@ -2,7 +2,9 @@ import { Stack, Button, Box, Input, Fieldset, Textarea, Field, Spinner, createLi
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import createWorkOrderSchema from "./rules";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { toaster } from "@/components/ui/toaster";
+import { useState } from "react";
 
 type Task = {
   id: string;
@@ -17,11 +19,14 @@ interface FormData {
 }
 
 export const CreateWorkOrderForm: React.FC = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    
     const {
         register,
         handleSubmit,
         control,
         formState: { errors },
+        reset,
     } = useForm<FormData>({
         resolver: yupResolver(createWorkOrderSchema),
         mode: "onChange",
@@ -39,9 +44,52 @@ export const CreateWorkOrderForm: React.FC = () => {
         return response.json();
       }
     });
+
+    const createWorkOrderMutation = useMutation({
+      mutationFn: async (data: FormData) => {
+        const response = await fetch('http://localhost:3000/work-orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: data.title,
+            description: data.description,
+            taskIds: data.tasks,
+          }),
+        });
+        
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || 'Failed to create work order');
+        }
+        
+        return response.json();
+      },
+      onSuccess: () => {
+        toaster.create({
+          title: "Success",
+          description: "Work order created successfully!",
+          type: "success",
+        });
+        reset();
+      },
+      onError: (error: Error) => {
+        toaster.create({
+          title: "Error",
+          description: error.message,
+          type: "error",
+        });
+      },
+    });
     
-    const handleFormSubmit = (data: FormData) => {
-        console.log(data);
+    const handleFormSubmit = async (data: FormData) => {
+        setIsSubmitting(true);
+        try {
+          await createWorkOrderMutation.mutateAsync(data);
+        } finally {
+          setIsSubmitting(false);
+        }
     };
 
     return (
@@ -123,8 +171,14 @@ export const CreateWorkOrderForm: React.FC = () => {
               </Field.Root>
             </Fieldset.Content>
 
-            <Button type="submit" mt="4" colorScheme="blue">
-              Submit
+            <Button 
+              type="submit" 
+              mt="4" 
+              colorScheme="blue"
+              loading={isSubmitting}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Creating..." : "Submit"}
             </Button>
           </Fieldset.Root>
         </Box>
