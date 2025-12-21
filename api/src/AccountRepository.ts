@@ -7,7 +7,7 @@ export default interface AccountRepository {
     getByEmail(email: string): Promise<Account | null>;
 }
 
-export class AccountRepositoryDataBase implements AccountRepository {
+export class AccountRepositoryTypeORM implements AccountRepository {
     private repository: Repository<Account>;
 
     constructor() {

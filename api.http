@@ -16,3 +16,8 @@ Content-Type: application/json
     "email": "le.amaral@outlook.com",
     "password": "123s456"
 }
+
+###
+
+GET http://localhost:3000/tasks
+Content-Type: application/json
