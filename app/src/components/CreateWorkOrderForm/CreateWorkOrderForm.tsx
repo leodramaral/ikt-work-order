@@ -21,6 +21,7 @@ export const CreateWorkOrderForm: React.FC = () => {
         register,
         handleSubmit,
         control,
+        formState: { errors },
     } = useForm<FormData>({
         resolver: yupResolver(createWorkOrderSchema),
         mode: "onChange",
@@ -44,7 +45,15 @@ export const CreateWorkOrderForm: React.FC = () => {
     };
 
     return (
-        <Box as="form" onSubmit={handleSubmit(handleFormSubmit)}>
+        <Box 
+          as="form" 
+          onSubmit={handleSubmit(handleFormSubmit)}
+          bg="bg.panel"
+          p={6}
+          borderRadius="lg"
+          borderWidth="1px"
+          borderColor="border.emphasized"
+        >
 
           <Fieldset.Root size="lg" maxW="md">
             <Stack>
@@ -55,23 +64,27 @@ export const CreateWorkOrderForm: React.FC = () => {
             </Stack>
           
             <Fieldset.Content>
-              <Field.Root>
+              <Field.Root invalid={!!errors.title}>
                 <Field.Label>Title</Field.Label>
                 <Input
                   {...register("title")}
-                  required
                 />
+                {errors.title && (
+                  <Field.ErrorText>{errors.title.message}</Field.ErrorText>
+                )}
               </Field.Root>
 
-              <Field.Root>
+              <Field.Root invalid={!!errors.description}>
                 <Field.Label>Description</Field.Label>
                 <Textarea
                   {...register("description")}
-                  required
                 />
+                {errors.description && (
+                  <Field.ErrorText>{errors.description.message}</Field.ErrorText>
+                )}
               </Field.Root>
 
-              <Field.Root>
+              <Field.Root invalid={!!errors.tasks}>
                 <Field.Label>Tasks</Field.Label>
                 {!data ? (
                   <Spinner size="md" />
@@ -90,7 +103,6 @@ export const CreateWorkOrderForm: React.FC = () => {
                         value={field.value}
                         onValueChange={(details) => field.onChange(details.value)}
                       >
-                        <Listbox.Label>Choose tasks</Listbox.Label>
                         <Listbox.Content>
                           {data.map((task: Task) => (
                             <Listbox.Item key={task.id} item={task}>
@@ -104,6 +116,9 @@ export const CreateWorkOrderForm: React.FC = () => {
                   />
                 ) : (
                   <Field.HelperText>Nenhuma tarefa encontrada.</Field.HelperText>
+                )}
+                {errors.tasks && (
+                  <Field.ErrorText>{errors.tasks.message}</Field.ErrorText>
                 )}
               </Field.Root>
             </Fieldset.Content>
