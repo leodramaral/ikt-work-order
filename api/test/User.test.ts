@@ -1,4 +1,4 @@
-import Account from "../src/Account"
+import Account from "../src/domain/Account"
 
 test('create a user', () => {
     const account = Account.create('Leandro', 'email@leandro.com', 'hashedpassword');

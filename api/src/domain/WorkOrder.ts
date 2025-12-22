@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, ManyToOne } from "typeorm";
-import Task from "./Task";
 import Account from "./Account";
+import Task from "./Task";
+
 
 @Entity("work_orders")
 export default class WorkOrder {

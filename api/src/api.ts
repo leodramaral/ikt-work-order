@@ -1,15 +1,15 @@
 import express from 'express';
-import { Request, Response } from 'express';
 import cors from 'cors';
-import Signup from './Signup';
-import { AppDataSource } from './data-source';
-import { AccountRepositoryTypeORM } from './AccountRepository';
-import Login from './Login';
-import { TaskRepositoryTypeORM } from './TaskRepository';
-import GetTasks from './GetTasks';
-import CreateWorkOrder from './CreateWorkOrder';
-import { WorkOrderRepositoryTypeORM } from './WorkOrderRepository';
-import GetWorkOrders from './GetWorkOrders';
+import { Request, Response } from 'express';
+import { AppDataSource } from './database/data-source';
+import { AccountRepositoryTypeORM } from './repository/AccountRepository';
+import { TaskRepositoryTypeORM } from './repository/TaskRepository';
+import { WorkOrderRepositoryTypeORM } from './repository/WorkOrderRepository';
+import Login from './usecase/Login';
+import GetTasks from './usecase/GetTasks';
+import GetWorkOrders from './usecase/GetWorkOrders';
+import Signup from './usecase/Signup';
+import CreateWorkOrder from './usecase/CreateWorkOrder';
 
 export async function api() {
     await AppDataSource.initialize();

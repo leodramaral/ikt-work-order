@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import Account from "./Account";
-import Task from "./Task";
-import WorkOrder from "./WorkOrder";
+import Account from "../domain/Account";
+import Task from "../domain/Task";
+import WorkOrder from "../domain/WorkOrder";
 
 export const AppDataSource = new DataSource({
     type: "postgres",

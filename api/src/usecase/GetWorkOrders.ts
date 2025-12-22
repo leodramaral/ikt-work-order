@@ -1,4 +1,5 @@
-import WorkOrderRepository from "./WorkOrderRepository";
+import WorkOrderRepository from "../repository/WorkOrderRepository";
+import Task from "../domain/Task";
 
 export default class GetWorkOrders {
     constructor(readonly workOrderRepository: WorkOrderRepository) { }
@@ -9,7 +10,7 @@ export default class GetWorkOrders {
             id: wo.id,
             title: wo.title,
             description: wo.description,
-            tasks: wo.tasks.map(task => ({
+            tasks: wo.tasks.map((task: Task) => ({
                 id: task.id,
                 title: task.title,
                 description: task.description

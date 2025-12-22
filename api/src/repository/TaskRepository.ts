@@ -1,6 +1,6 @@
 import { In, Repository } from "typeorm";
-import Task from "./Task";
-import { AppDataSource } from "./data-source";
+import Task from "../domain/Task";
+import { AppDataSource } from "../database/data-source";
 
 export default interface TaskRepository {
     findAll(): Promise<Task[]>;

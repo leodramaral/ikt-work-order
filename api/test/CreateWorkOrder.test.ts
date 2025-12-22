@@ -1,8 +1,8 @@
-import CreateWorkOrder from "../src/CreateWorkOrder";
-import Task from "../src/Task";
-import WorkOrder from "../src/WorkOrder";
-import TaskRepository from "../src/TaskRepository";
-import WorkOrderRepository from "../src/WorkOrderRepository";
+import Task from "../src/domain/Task";
+import WorkOrder from "../src/domain/WorkOrder";
+import TaskRepository from "../src/repository/TaskRepository";
+import WorkOrderRepository from "../src/repository/WorkOrderRepository";
+import CreateWorkOrder from "../src/usecase/CreateWorkOrder";
 
 class FakeTaskRepository implements TaskRepository {
     private tasks: Task[];

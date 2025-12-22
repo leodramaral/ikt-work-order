@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
-import Account from "./Account";
-import { AppDataSource } from "./data-source";
+import Account from "../domain/Account";
+import { AppDataSource } from "../database/data-source";
 
 export default interface AccountRepository {
     save(account: Account): Promise<{ id: string}>;

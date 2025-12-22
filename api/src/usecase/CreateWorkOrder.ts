@@ -1,6 +1,6 @@
-import WorkOrder from "./WorkOrder";
-import TaskRepository from "./TaskRepository";
-import WorkOrderRepository from "./WorkOrderRepository";
+import TaskRepository from "../repository/TaskRepository";
+import WorkOrder from "../domain/WorkOrder";
+import WorkOrderRepository from "../repository/WorkOrderRepository";
 
 export default class CreateWorkOrder {
     constructor(

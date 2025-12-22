@@ -1,4 +1,4 @@
-import TaskRepository from "./TaskRepository";
+import TaskRepository from "../repository/TaskRepository";
 
 export default class GetTasks {
     constructor(readonly taskRepository: TaskRepository) { }

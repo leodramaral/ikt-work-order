@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
-import WorkOrder from "./WorkOrder";
-import { AppDataSource } from "./data-source";
+import WorkOrder from "../domain/WorkOrder";
+import { AppDataSource } from "../database/data-source";
 
 export default interface WorkOrderRepository {
     save(workOrder: WorkOrder): Promise<WorkOrder>;
