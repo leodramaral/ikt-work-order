@@ -466,19 +466,4 @@ module.exports = {
 
 ---
 
-## 🔮 Possíveis Melhorias Futuras
-
-1. **Autenticação robusta**: Implementar JWT + bcrypt
-2. **Validação de input**: Usar biblioteca como Zod ou class-validator
-3. **Paginação**: Adicionar paginação nas listagens
-4. **Status codes**: Diferenciar 400, 404, 500 adequadamente
-5. **Logging**: Implementar Winston ou Pino
-6. **Documentation**: Adicionar Swagger/OpenAPI
-7. **DI Container**: Usar InversifyJS ou TSyringe
-8. **Event Sourcing**: Para audit trail
-9. **CQRS**: Separar comandos de queries
-10. **Testes E2E**: Adicionar testes de ponta a ponta
-
----
-
 Esta documentação reflete uma aplicação bem estruturada seguindo os princípios da Clean Architecture, com forte separação de responsabilidades, alta testabilidade e código limpo e manutenível.

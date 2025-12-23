@@ -1,3 +1,4 @@
+### Cadastrar Usuário
 POST http://localhost:3000/signup
 Content-Type: application/json
 
@@ -9,6 +10,7 @@ Content-Type: application/json
 
 ###
 
+### Fazer Login
 POST http://localhost:3000/login
 Content-Type: application/json
 
@@ -19,10 +21,25 @@ Content-Type: application/json
 
 ###
 
+### Listar Todas as Tarefas
 GET http://localhost:3000/tasks
 Content-Type: application/json
 
 ###
 
+### Listar Ordens de Trabalho
 GET http://localhost:3000/work-orders
 Content-Type: application/json
+
+###
+
+### Criar Ordem de Trabalho
+# Substitua os IDs pelas tasks retornadas no endpoint /tasks
+POST http://localhost:3000/work-orders
+Content-Type: application/json
+
+{
+    "title": "Sprint 1",
+    "description": "Primeira sprint do projeto",
+    "taskIds": ["id-da-task-1", "id-da-task-2"]
+}

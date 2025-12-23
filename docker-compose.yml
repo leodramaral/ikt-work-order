@@ -11,6 +11,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d ikt_work_order"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   api:
     build:
@@ -20,18 +25,35 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: development
-      PORT: 3001
+      PORT: 3000
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USERNAME: admin
       DB_PASSWORD: password
       DB_NAME: ikt_work_order
     ports:
-      - "3001:3001"
+      - "3000:3000"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - ./api:/app
+      - /app/node_modules
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: ikt-work-order-app
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:3000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    volumes:
+      - ./app:/app
       - /app/node_modules
 
 volumes:

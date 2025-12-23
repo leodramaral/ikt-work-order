@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/api.ts",
+    "dev": "ts-node src/api.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migration:generate": "npm run typeorm -- migration:generate -d src/data-source.ts",
+    "migration:generate": "npm run typeorm -- migration:generate -d src/database/data-source.ts",
     "migration:create": "npm run typeorm -- migration:create",
-    "migration:run": "npm run typeorm -- migration:run -d src/data-source.ts",
-    "migration:revert": "npm run typeorm -- migration:revert -d src/data-source.ts"
+    "migration:run": "npm run typeorm -- migration:run -d src/database/data-source.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/database/data-source.ts",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +20,10 @@
     "axios": "^1.13.2",
     "cors": "^2.8.5",
     "express": "^5.2.1",
-    "pg-promise": "^12.3.0"
+    "pg": "^8.11.3",
+    "pg-promise": "^12.3.0",
+    "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
