@@ -55,4 +55,8 @@ export default class WorkOrder {
     removeTask(taskId: string): void {
         this.tasks = this.tasks.filter(task => task.id !== taskId);
     }
+
+    getTasks(): Task[] {
+        return this.tasks;
+    }
 }
